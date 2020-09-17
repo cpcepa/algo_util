@@ -5,14 +5,40 @@ function        : Online parsing of meta.yaml to generate the parameters
                   Supports all as: catch-all
 
 Changelog       : 0.1- initial release
-Date modified   : 02/09/2020
-version         : 0.1
+                  0.2- support numpy types and constants,
+Date modified   : 16/09/2020
+version         : 0.2
 '''
 
 import argparse
 import yaml
+import numpy as np
 import json
 from ast import literal_eval as make_tuple
+
+
+def str_2_np_constant(v):
+    # dictionary for np_constants
+    type_dict = {
+        "np.inf": np.inf,
+        "np.Inf": np.inf,
+        "np.Infinity": np.inf,
+        "np.PINF": np.inf,
+        "np.infty": np.inf,
+        "np.nan": np.nan,
+        "np.NAN": np.nan,
+        "np.NaN": np.nan,
+        "np.NINF": np.NINF,
+        "np.NZERO": np.NZERO,
+        "np.PZERO": np.PZERO,
+        "np.euler_gamma": np.euler_gamma,
+        "np.newaxis": np.newaxis,
+        "np.pi": np.pi,
+    }
+    if v in type_dict:
+        return type_dict[v]
+    else:
+        return v
 
 
 def catch_all(value):
@@ -26,7 +52,17 @@ def catch_all(value):
         return converted_value
     except (ValueError, SyntaxError):
         pass
-
+    if (value[0:3] == "np."):  # only check np.xxxx, skip all int, float
+        try:
+            converted_value = np.dtype(value[3:]).type
+            return converted_value
+        except (TypeError, ValueError):
+            pass
+        try:
+            converted_value = str_2_np_constant(value)
+            return converted_value
+        except (ValueError):
+            pass
     return value  # a string, hopefully
 
 
