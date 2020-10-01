@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="algo_util-cpcepa",
+    name="algo-util",
     version="0.0.1",
     author="cpcepa",
     author_email="poulocp@hotmail.com",
