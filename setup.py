@@ -5,14 +5,14 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="algo-util",
-    version="0.0.1",
+    version="0.1.0",
     author="cpcepa",
     author_email="poulocp@hotmail.com",
     description="algo_util for modstore ai",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/cpcepa/algo_util",
-    packages=setuptools.find_packages(include=['meta_argparser','meta_argparser.*']),
+    packages=setuptools.find_packages(where='scr'),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

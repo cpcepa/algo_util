@@ -4,10 +4,10 @@ function        : Online parsing of meta.yaml to generate the parameters
                   to read in.
                   Supports all as: catch-all
 
-Changelog       : 0.1- initial release
-                  0.2- support numpy types and constants,
+Changelog       : 0.1.0- initial release
+                  0.2.0- support numpy types and constants,
 Date modified   : 16/09/2020
-version         : 0.2
+version         : 0.2.0
 '''
 
 import argparse
@@ -168,3 +168,6 @@ def parse_yaml(meta_yaml_path="../meta.yaml"):
         # print(type(algo_parameters[parameter]), parameter)
 
     return args, algo_parameters
+    
+if __name__ == "__main__" and __package__ is None:
+    __package__ = "meta_argparser"
